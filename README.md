@@ -43,23 +43,22 @@ initiator.push(message, function(err, result) {
 });
 ```
 
-**ID**
+<dl>
+  <dt>ID</dt>
+  <dd>
+    The ID identifies the message you push to the user. This ID must be unique, not only within your app but
+    in the entire world! Most of the time, people make a combination of their packagename and a timestamp. An example
+    of an ID could be
 
-The ID identifies the message you push to the user. This ID must be unique, not only within your app but
-in the entire world! Most of the time, people make a combination of their packagename and a timestamp. An example
-of an ID could be
+    `eu.endare.appName@1374148800`
+    </dd>
 
-    eu.endare.appName@1374148800
-
-**applicationID and password**
-
-When you register your application with BlackBerry, they will send you an email with these credentials. Just copy-paste
-them in here and you should be good to go!
-
-**CPID**
-
-CPID stands for Content Provider ID and is provided by BlackBerry as well. Just look into the email you received and copy-paste
-this one as well.
+  <dt>applicationID and password</dt>
+  <dd>When you register your application with BlackBerry, they will send you an email with these credentials. Just copy-paste them in here and you should be good to go!</dd>
+  
+  <dt>CPID</dt>
+  <dd>CPID stands for Content Provider ID and is provided by BlackBerry as well. Just look into the email you received and copy-pastethis one as well.</dd>
+</dl>
 
 ## Contributors
  * [SamVerschueren]     <verschueren.sam@endare.eu>
