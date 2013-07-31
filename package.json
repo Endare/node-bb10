@@ -1,7 +1,7 @@
 {
   "name": "node-bb10",
   "version": "1.0.0",
-  "description": "A NodeJS library for BlackBerry push notifications",
+  "description": "A NodeJS library for BlackBerry 10 push notifications",
   "main": "index",
   "repository": {
     "type": "git",
