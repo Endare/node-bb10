@@ -57,8 +57,17 @@ initiator.push(message, function(err, result) {
   <dd>When you register your application with BlackBerry, they will send you an email with these credentials. Just copy-paste them in here and you should be good to go!</dd>
   
   <dt>CPID</dt>
-  <dd>CPID stands for Content Provider ID and is provided by BlackBerry as well. Just look into the email you received and copy-pastethis one as well.</dd>
+  <dd>CPID stands for Content Provider ID and is provided by BlackBerry as well. Just look into the email you received and copy-paste this ID.</dd>
 </dl>
+
+## Development
+
+If you are testing your application, BlackBerry works with an evaluation URL. If you want to run in evaluation/development mode you should add an extra parameter
+when creating the pushinitiator.
+
+```js
+var initiator = new bb10.PushInitiator(applicationId, password, CPID, true);
+```
 
 ## Contributors
  * [SamVerschueren]     <verschueren.sam@endare.eu>
