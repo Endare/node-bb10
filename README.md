@@ -1,6 +1,6 @@
 # node-bb10
 
-![Endare icon](http://www.endare.eu/images/logo.png)
+![Endare icon](http://www.endare.com/wp-content/uploads/2014/02/logo_oranje.png)
 
 node-bb10 is a Node.JS library that is able to push notifications to a BlackBerry 10 device.
 
