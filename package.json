@@ -5,13 +5,20 @@
   "main": "index",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Endare/node-bb10"
+    "url": "https://github.com/pec1985/node-bb10"
   },
   "keywords": [
     "blackberry10",
     "blackberry",
     "push",
     "notifications"
+  ],
+  "contributors": [
+    {
+      "name": "Pedro Enrique",
+      "email": "penrique@appcelerator.com",
+      "url": "https://github.com/pec1985"
+    }
   ],
   "author": "Endare bvba",
   "license": "MIT",
