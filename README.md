@@ -67,7 +67,7 @@ var initiator = new bb10.PushInitiator(applicationId, password, CPID, true);
 ```
 
 ## Contributors
- * Sam Verschueren     <verschueren.sam@endare.eu>
+ * Sam Verschueren     <sam.verschueren@endare.com>
  * Oliver Salzburg     <oliver.salzburg@gmail.com>
 
 ## Changelog

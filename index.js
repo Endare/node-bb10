@@ -1,6 +1,6 @@
 /*!
  * node-bb10
- * Copyright(c) 2013 Endare bvba <info@endare.eu>
+ * Copyright(c) 2013 Endare bvba <info@endare.com>
  * MIT Licensed
  */
 
