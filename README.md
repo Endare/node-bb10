@@ -47,7 +47,7 @@ initiator.push(message, function(err, result) {
     in the entire world! Most of the time, people make a combination of their packagename and a timestamp. An example
     of an ID could be
 
-    `eu.endare.appName@1374148800`
+    `com.endare.appName@1374148800`
     </dd>
 
   <dt>applicationID and password</dt>
@@ -78,7 +78,7 @@ var initiator = new bb10.PushInitiator(applicationId, password, CPID, true);
 
 The MIT License
 
-Copyright (c) 2013 Endare BVBA <info@endare.eu>
+Copyright (c) 2013 Endare BVBA <info@endare.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
