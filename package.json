@@ -1,6 +1,6 @@
 {
   "name": "node-bb10",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A NodeJS library for BlackBerry 10 push notifications",
   "main": "index",
   "repository": {
@@ -12,6 +12,18 @@
     "blackberry",
     "push",
     "notifications"
+  ],
+  "contributors": [
+    {
+      "name": "Sam Verschueren",
+      "email": "sam.verschueren@gmail.com",
+      "url": "https://github.com/SamVerschueren"
+    },
+    {
+      "name": "Oliver Salzburg",
+      "email": "oliver.salzburg@gmail.com",
+      "url": "https://github.com/oliversalzburg"
+    }
   ],
   "author": "Endare bvba",
   "license": "MIT",
