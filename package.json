@@ -1,11 +1,11 @@
 {
   "name": "node-bb10",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A NodeJS library for BlackBerry 10 push notifications",
   "main": "index",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Endare/node-bb10"
+    "url": "https://github.com/pec1985/node-bb10"
   },
   "keywords": [
     "blackberry10",
@@ -13,10 +13,18 @@
     "push",
     "notifications"
   ],
+  "contributors": [
+    {
+      "name": "Pedro Enrique",
+      "email": "penrique@appcelerator.com",
+      "url": "https://github.com/pec1985"
+    }
+  ],
   "author": "Endare bvba",
   "license": "MIT",
   "readmeFilename": "README.md",
   "dependencies": {
-    "xml2js": "0.2.x"
+    "xml2js": "0.2.x",
+    "moment": "2.7.0"
   }
 }
