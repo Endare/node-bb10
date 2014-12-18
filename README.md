@@ -73,6 +73,11 @@ var initiator = new bb10.PushInitiator(applicationId, password, CPID, true);
 ## Changelog
 **1.0.0:**
  * first release
+
+**1.0.3:**
+ * Fixed issues regarding Date object. Used MomentJS instead.
+ * Fixed issue regarding undefined response of res.pap
+ * Cleaned up code
  
 ## The full MIT license
 
