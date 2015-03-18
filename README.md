@@ -20,6 +20,7 @@ var bb10 = require('node-bb10');
 var message = new bb10.PushMessage(ID, 'Hello World!');
 message.addRecipient('00000000');                       // The PIN number of the recipient
 message.addAllRecipients(['00000001', '00000002']);     // Add multiple recipient at once
+message.broadcast();					// Broadcast to all subscribed devices
 
 // The default delivery method is 'notspecified'
 message.setDeliveryMethod('unconfirmed');
