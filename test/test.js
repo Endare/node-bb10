@@ -20,7 +20,9 @@ var should = chai.should();
 chai.use(sinonChai);
 
 // library
-var constants = require('../lib/Constants');
+var bb10 = require('../index'),
+    PushMessage = bb10.PushMessage,
+    constants = require('../lib/Constants');
 
 describe('node-bb10', function() {
 
@@ -40,6 +42,56 @@ describe('node-bb10', function() {
 
         it('Should have the correct production URL', function() {
             constants.PRODUCTION_URL.should.be.equal('pushapi.na.blackberry.com');
+        });
+    });
+
+    describe('PushMessage', function() {
+
+        describe('#constructor', function() {
+
+            it('Should throw an error if no ID is provided', function() {
+                PushMessage.bind(PushMessage).should.throw(Error);
+            });
+
+            it('Should throw an error if an empty ID is provided', function() {
+                PushMessage.bind(PushMessage, '').should.throw(Error);
+            });
+
+            it('Should set the ID of it is provided', function() {
+                var message = new PushMessage('test-id');
+
+                message.id.should.be.equal('test-id');
+            });
+
+            it('Should trim the whitespace of the ID', function() {
+                var message = new PushMessage('    test-id     ');
+
+                message.id.should.be.equal('test-id');
+            });
+
+            it('Should set a blank message if no message is provided', function() {
+                var message = new PushMessage('test-id');
+
+                message.message.should.be.equal('');
+            });
+
+            it('Should set the message if one is provided', function() {
+                var message = new PushMessage('test-id', 'Hello World');
+
+                message.message.should.be.equal('Hello World');
+            });
+
+            it('Should set the delivery method to \'notspecified\'', function() {
+                var message = new PushMessage('test-id', 'Hello World');
+
+                message.deliveryMethod.should.be.equal('notspecified');
+            });
+
+            it('Should have an empty list of recipients', function() {
+                var message = new PushMessage('test-id', 'Hello World');
+
+                message.recipients.should.have.length(0);
+            });
         });
     });
 });
