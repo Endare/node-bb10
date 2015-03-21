@@ -93,5 +93,27 @@ describe('node-bb10', function() {
                 message.recipients.should.have.length(0);
             });
         });
+
+        describe('#setMessage', function() {
+
+            var message;
+
+            beforeEach(function() {
+                // Be sure to create a new message every time
+                message = new PushMessage('test-id');
+            });
+
+            it('Should set the message correctly', function() {
+                message.setMessage('hello message');
+
+                message.message.should.be.equal('hello message');
+            });
+
+            it('Should set a blank message if undefined is passed in as parameter', function() {
+                message.setMessage(undefined);
+
+                message.message.should.be.equal('');
+            });
+        });
     });
 });
