@@ -220,5 +220,22 @@ describe('node-bb10', function() {
                 message.recipients.should.have.length(4);
             });
         });
+
+        describe('#clearRecipients', function() {
+
+            var message;
+
+            beforeEach(function() {
+                // Be sure to create a new message every time
+                message = new PushMessage('test-id');
+                message.addAllRecipients(['AAAAAAAA', 'FFFFFFFF']);
+            });
+
+            it('Should clear the list of recipients', function() {
+                message.clearRecipients();
+
+                message.recipients.should.have.length(0);
+            });
+        });
     });
 });
