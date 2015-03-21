@@ -174,17 +174,50 @@ describe('node-bb10', function() {
             });
 
             it('Should add two recipients to the list if it is called twice with different tokens', function() {
-                message.addRecipient('FFFFFFF');
-                message.addRecipient('AAAAAAA');
+                message.addRecipient('FFFFFFFF');
+                message.addRecipient('AAAAAAAA');
 
                 message.recipients.should.have.length(2);
             });
 
             it('Should only have one recipient if it is called twice with the same token', function() {
-                message.addRecipient('FFFFFFF');
-                message.addRecipient('FFFFFFF');
+                message.addRecipient('FFFFFFFF');
+                message.addRecipient('FFFFFFFF');
 
                 message.recipients.should.have.length(1);
+            });
+        });
+
+        describe('#addAllRecipients', function() {
+
+            var message;
+
+            beforeEach(function() {
+                // Be sure to create a new message every time
+                message = new PushMessage('test-id');
+            });
+
+            it('Should throw an error if the argument provided is not an array', function() {
+                message.addAllRecipients.bind(message.addAllRecipients, 'FFFFFFFF').should.throw(Error);
+            });
+
+            it('Should add two recipients to the recipients list', function() {
+                message.addAllRecipients(['AAAAAAAA', 'FFFFFFFF']);
+
+                message.recipients.should.have.length(2);
+            });
+
+            it('Should only add unique recipients', function() {
+                message.addAllRecipients(['AAAAAAAA', 'FFFFFFFF', 'AAAAAAAA']);
+
+                message.recipients.should.have.length(2);
+            });
+
+            it('Should just append the recipients if it called twice', function() {
+                message.addAllRecipients(['AAAAAAAA', 'FFFFFFFF']);
+                message.addAllRecipients(['BBBBBBBB', 'CCCCCCCC']);
+
+                message.recipients.should.have.length(4);
             });
         });
     });
