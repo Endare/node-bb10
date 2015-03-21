@@ -237,5 +237,177 @@ describe('node-bb10', function() {
                 message.recipients.should.have.length(0);
             });
         });
+
+        describe('#toPAPMessage', function() {
+
+            var message;
+
+            beforeEach(function() {
+                // Be sure to create a new message every time
+                message = new PushMessage('test-id', 'Message content');
+                message.addRecipient('AAAAAAAA');
+            });
+
+            it('Should throw an error if no recipients are added to the message', function() {
+                message.clearRecipients();
+
+                message.toPAPMessage.bind(message.toPAPMessage).should.throw(Error);
+            });
+
+            it('Should convert to the correct PAP message with only one recipient', function() {
+                var result = message.toPAPMessage({ "source-reference": "applicationID", "deliver-before-timestamp": "2015-05-21T12:00:00Z" });
+
+                var pap = [
+                            '--PMasdfglkjhqwert',
+                            'Content-Type: application/xml; charset=UTF-8',
+                            '',
+                            '<?xml version="1.0"?>',
+                            '<!DOCTYPE pap PUBLIC "-//WAPFORUM//DTD PAP 2.1//EN" "http://www.openmobilealliance.org/tech/DTD/pap_2.1.dtd">',
+                            '<pap>',
+                            '    <push-message push-id="test-id" source-reference="applicationID" deliver-before-timestamp="2015-05-21T12:00:00Z">',
+                            '        <address address-value="AAAAAAAA" />',
+                            '        <quality-of-service delivery-method="notspecified" />',
+                            '    </push-message>',
+                            '</pap>',
+                            '--PMasdfglkjhqwert',
+                            'Content-Encoding: binary',
+                            'Content-Type: text/html',
+                            'Push-Message-ID: test-id',
+                            '',
+                            'Message content',
+                            '',
+                            '--PMasdfglkjhqwert--',
+                            constants.NEW_LINE
+                         ];
+
+                result.should.be.equal(pap.join(constants.NEW_LINE));
+            });
+
+            it('Should convert to the correct PAP message with two recipients', function() {
+                message.addAllRecipients(['AAAAAAAA', 'FFFFFFFF']);
+
+                var result = message.toPAPMessage({ "source-reference": "applicationID", "deliver-before-timestamp": "2015-05-21T12:00:00Z" });
+
+                var pap = [
+                            '--PMasdfglkjhqwert',
+                            'Content-Type: application/xml; charset=UTF-8',
+                            '',
+                            '<?xml version="1.0"?>',
+                            '<!DOCTYPE pap PUBLIC "-//WAPFORUM//DTD PAP 2.1//EN" "http://www.openmobilealliance.org/tech/DTD/pap_2.1.dtd">',
+                            '<pap>',
+                            '    <push-message push-id="test-id" source-reference="applicationID" deliver-before-timestamp="2015-05-21T12:00:00Z">',
+                            '        <address address-value="AAAAAAAA" />',
+                            '        <address address-value="FFFFFFFF" />',
+                            '        <quality-of-service delivery-method="notspecified" />',
+                            '    </push-message>',
+                            '</pap>',
+                            '--PMasdfglkjhqwert',
+                            'Content-Encoding: binary',
+                            'Content-Type: text/html',
+                            'Push-Message-ID: test-id',
+                            '',
+                            'Message content',
+                            '',
+                            '--PMasdfglkjhqwert--',
+                            constants.NEW_LINE
+                         ];
+
+                result.should.be.equal(pap.join(constants.NEW_LINE));
+            });
+
+            it('Should convert to the correct PAP message when setting a different message', function() {
+                message.setMessage('This is another message');
+
+                var result = message.toPAPMessage({ "source-reference": "applicationID", "deliver-before-timestamp": "2015-05-21T12:00:00Z" });
+
+                var pap = [
+                            '--PMasdfglkjhqwert',
+                            'Content-Type: application/xml; charset=UTF-8',
+                            '',
+                            '<?xml version="1.0"?>',
+                            '<!DOCTYPE pap PUBLIC "-//WAPFORUM//DTD PAP 2.1//EN" "http://www.openmobilealliance.org/tech/DTD/pap_2.1.dtd">',
+                            '<pap>',
+                            '    <push-message push-id="test-id" source-reference="applicationID" deliver-before-timestamp="2015-05-21T12:00:00Z">',
+                            '        <address address-value="AAAAAAAA" />',
+                            '        <quality-of-service delivery-method="notspecified" />',
+                            '    </push-message>',
+                            '</pap>',
+                            '--PMasdfglkjhqwert',
+                            'Content-Encoding: binary',
+                            'Content-Type: text/html',
+                            'Push-Message-ID: test-id',
+                            '',
+                            'This is another message',
+                            '',
+                            '--PMasdfglkjhqwert--',
+                            constants.NEW_LINE
+                         ];
+
+                result.should.be.equal(pap.join(constants.NEW_LINE));
+            });
+
+            it('Should convert to the correct PAP message with another delivery method', function() {
+                message.setDeliveryMethod('unconfirmed');
+
+                var result = message.toPAPMessage({ "source-reference": "applicationID", "deliver-before-timestamp": "2015-05-21T12:00:00Z" });
+
+                var pap = [
+                            '--PMasdfglkjhqwert',
+                            'Content-Type: application/xml; charset=UTF-8',
+                            '',
+                            '<?xml version="1.0"?>',
+                            '<!DOCTYPE pap PUBLIC "-//WAPFORUM//DTD PAP 2.1//EN" "http://www.openmobilealliance.org/tech/DTD/pap_2.1.dtd">',
+                            '<pap>',
+                            '    <push-message push-id="test-id" source-reference="applicationID" deliver-before-timestamp="2015-05-21T12:00:00Z">',
+                            '        <address address-value="AAAAAAAA" />',
+                            '        <quality-of-service delivery-method="unconfirmed" />',
+                            '    </push-message>',
+                            '</pap>',
+                            '--PMasdfglkjhqwert',
+                            'Content-Encoding: binary',
+                            'Content-Type: text/html',
+                            'Push-Message-ID: test-id',
+                            '',
+                            'Message content',
+                            '',
+                            '--PMasdfglkjhqwert--',
+                            constants.NEW_LINE
+                         ];
+
+                result.should.be.equal(pap.join(constants.NEW_LINE));
+            });
+
+            it('Should convert to the correct PAP message with another ID, recipient and message', function() {
+                message = new PushMessage('my-message-id', 'Hello World');
+                message.addRecipient('BBBBBBBB');
+
+                var result = message.toPAPMessage({ "source-reference": "source-refID", "deliver-before-timestamp": "2015-05-21T16:00:00Z" });
+
+                var pap = [
+                            '--PMasdfglkjhqwert',
+                            'Content-Type: application/xml; charset=UTF-8',
+                            '',
+                            '<?xml version="1.0"?>',
+                            '<!DOCTYPE pap PUBLIC "-//WAPFORUM//DTD PAP 2.1//EN" "http://www.openmobilealliance.org/tech/DTD/pap_2.1.dtd">',
+                            '<pap>',
+                            '    <push-message push-id="my-message-id" source-reference="source-refID" deliver-before-timestamp="2015-05-21T16:00:00Z">',
+                            '        <address address-value="BBBBBBBB" />',
+                            '        <quality-of-service delivery-method="notspecified" />',
+                            '    </push-message>',
+                            '</pap>',
+                            '--PMasdfglkjhqwert',
+                            'Content-Encoding: binary',
+                            'Content-Type: text/html',
+                            'Push-Message-ID: my-message-id',
+                            '',
+                            'Hello World',
+                            '',
+                            '--PMasdfglkjhqwert--',
+                            constants.NEW_LINE
+                         ];
+
+                result.should.be.equal(pap.join(constants.NEW_LINE));
+            });
+        });
     });
 });
