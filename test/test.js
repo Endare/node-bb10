@@ -151,5 +151,41 @@ describe('node-bb10', function() {
                 message.deliveryMethod.should.be.equal('unconfirmed');
             });
         });
+
+        describe('#addRecipient', function() {
+
+            var message;
+
+            beforeEach(function() {
+                // Be sure to create a new message every time
+                message = new PushMessage('test-id');
+            });
+
+            it('Should add one recipient to the list', function() {
+                message.addRecipient('FFFFFFFF');
+
+                message.recipients.should.have.length(1);
+            });
+
+            it('Should add the recipient \'FFFFFFFF\' to the list', function() {
+                message.addRecipient('FFFFFFFF');
+
+                message.recipients[0].should.be.equal('FFFFFFFF');
+            });
+
+            it('Should add two recipients to the list if it is called twice with different tokens', function() {
+                message.addRecipient('FFFFFFF');
+                message.addRecipient('AAAAAAA');
+
+                message.recipients.should.have.length(2);
+            });
+
+            it('Should only have one recipient if it is called twice with the same token', function() {
+                message.addRecipient('FFFFFFF');
+                message.addRecipient('FFFFFFF');
+
+                message.recipients.should.have.length(1);
+            });
+        });
     });
 });
