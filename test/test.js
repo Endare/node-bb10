@@ -115,5 +115,41 @@ describe('node-bb10', function() {
                 message.message.should.be.equal('');
             });
         });
+
+        describe('#setDeliveryMethod', function() {
+
+            var message;
+
+            beforeEach(function() {
+                // Be sure to create a new message every time
+                message = new PushMessage('test-id');
+            });
+
+            it('Should throw an error if the delivery method does not exist', function() {
+                message.setDeliveryMethod.bind(message.setDeliveryMethod, 'unknownmethod').should.throw(Error);
+            });
+
+            it('Should not throw an error if the delivery method is \'confirmed\'', function() {
+                message.setDeliveryMethod.bind(message.setDeliveryMethod, 'confirmed').should.not.throw(Error);
+            });
+
+            it('Should not throw an error if the delivery method is \'preferconfirmed\'', function() {
+                message.setDeliveryMethod.bind(message.setDeliveryMethod, 'preferconfirmed').should.not.throw(Error);
+            });
+
+            it('Should not throw an error if the delivery method is \'unconfirmed\'', function() {
+                message.setDeliveryMethod.bind(message.setDeliveryMethod, 'preferconfirmed').should.not.throw(Error);
+            });
+
+            it('Should not throw an error if the delivery method is \'unconfirmed\'', function() {
+                message.setDeliveryMethod.bind(message.setDeliveryMethod, 'notspecified').should.not.throw(Error);
+            });
+
+            it('Should set the delivery method to \'unconfirmed\'', function() {
+                message.setDeliveryMethod('unconfirmed');
+
+                message.deliveryMethod.should.be.equal('unconfirmed');
+            });
+        });
     });
 });
