@@ -6,7 +6,7 @@ node-bb10 is a Node.JS library that is able to push notifications to a BlackBerr
 ```bash
 $ npm install node-bb10
 ```
-##Requirements
+## Requirements
 
 A BlackBerry 10 device and the appropriate keys that you get from BlackBerry when [registering
 your application](http://developer.blackberry.com/services/push/).
@@ -62,18 +62,19 @@ initiator.push(message, function(err, result) {
 If you want to send a push message to all the devices registered by your application, you can use the broadcast method of the push initiator.
 
 ```js
-// create a message and add recipients
+// create a message, no need to add recipients
 var message = new bb10.PushMessage('uniqueID', 'Hello World!');
 
 // Create the push initiator
 var initiator = new bb10.PushInitiator(applicationId, password, CPID);
 
+// Broadcast the message to all the subscribers
 initiator.broadcast(message, function(err, result) {
     // Handle result
 });
 ```
 
-## Development
+### Development
 
 If you are testing your application, BlackBerry works with an evaluation URL. If you want to run in evaluation/development mode you should add an extra parameter
 when creating the pushinitiator.
@@ -83,8 +84,8 @@ var initiator = new bb10.PushInitiator(applicationId, password, CPID, true);
 ```
 
 ## Contributors
- * Sam Verschueren     <sam.verschueren@gmail.com>
- * Oliver Salzburg     <oliver.salzburg@gmail.com>
+ * Sam Verschueren (Author)     <sam.verschueren@gmail.com>
+ * Oliver Salzburg              <oliver.salzburg@gmail.com>
 
 ## Changelog
 **1.0.0:**
