@@ -8,7 +8,7 @@ $ npm install node-bb10
 ```
 ##Requirements
 
-A BlackBerry 10 device and the appropriate keys that you get from BlackBerry when [registering 
+A BlackBerry 10 device and the appropriate keys that you get from BlackBerry when [registering
 your application](http://developer.blackberry.com/services/push/).
 
 ## Usage
@@ -52,10 +52,26 @@ initiator.push(message, function(err, result) {
 
   <dt>applicationID and password</dt>
   <dd>When you register your application with BlackBerry, they will send you an email with these credentials. Just copy-paste them in here and you should be good to go!</dd>
-  
+
   <dt>CPID</dt>
   <dd>CPID stands for Content Provider ID and is provided by BlackBerry as well. Just look into the email you received and copy-paste this ID.</dd>
 </dl>
+
+### Broadcast
+
+If you want to send a push message to all the devices registered by your application, you can use the broadcast method of the push initiator.
+
+```js
+// create a message and add recipients
+var message = new bb10.PushMessage('uniqueID', 'Hello World!');
+
+// Create the push initiator
+var initiator = new bb10.PushInitiator(applicationId, password, CPID);
+
+initiator.broadcast(message, function(err, result) {
+    // Handle result
+});
+```
 
 ## Development
 
@@ -78,7 +94,7 @@ var initiator = new bb10.PushInitiator(applicationId, password, CPID, true);
  * Fixed issues regarding Date object. Used MomentJS instead.
  * Fixed issue regarding undefined response of res.pap
  * Cleaned up code
- 
+
 ## The full MIT license
 
 The MIT License
