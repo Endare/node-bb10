@@ -1,6 +1,8 @@
 # node-bb10
 
-node-bb10 is a Node.JS library that is able to push notifications to a BlackBerry 10 device.
+[![Build Status](http://img.shields.io/travis/Endare/node-bb10.svg)](https://travis-ci.org/Endare/node-bb10)
+
+> Push notifications to a BlackBerry 10 application easily.
 
 ## Installation
 ```bash
