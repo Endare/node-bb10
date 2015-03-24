@@ -2,7 +2,7 @@
 
 [![Build Status](http://img.shields.io/travis/Endare/node-bb10.svg)](https://travis-ci.org/Endare/node-bb10)
 
-> Push notifications to a BlackBerry 10 application easily.
+> Send push notifications to a BlackBerry 10 application easily.
 
 ## Installation
 ```bash
@@ -19,7 +19,7 @@ your application](http://developer.blackberry.com/services/push/).
 var bb10 = require('node-bb10');
 
 // create a message and add recipients
-var message = new bb10.PushMessage(ID, 'Hello World!');
+var message = new bb10.PushMessage('com.example.test@1459836', 'Hello World!');
 message.addRecipient('00000000');                       // The PIN number of the recipient
 message.addAllRecipients(['00000001', '00000002']);     // Add multiple recipient at once
 
@@ -46,12 +46,8 @@ initiator.push(message, function(err, result) {
   <dt>ID</dt>
   <dd>
     The ID identifies the message you push to the user. This ID must be unique, not only within your app but
-    in the entire world! Most of the time, people make a combination of their packagename and a timestamp. An example
-    of an ID could be
-
-    `com.endare.appName@1374148800`
-    </dd>
-
+    in the entire world! Most of the time, people make a combination of their packagename and a timestamp. An example of an ID could be ```com.endare.appName@1374148800```
+  </dd>
   <dt>applicationID and password</dt>
   <dd>When you register your application with BlackBerry, they will send you an email with these credentials. Just copy-paste them in here and you should be good to go!</dd>
 
@@ -97,6 +93,11 @@ var initiator = new bb10.PushInitiator(applicationId, password, CPID, true);
  * Fixed issues regarding Date object. Used MomentJS instead.
  * Fixed issue regarding undefined response of res.pap
  * Cleaned up code
+
+**1.1.0:**
+ * Added ```broadcast``` functionality
+ * Added better error handling
+ * Added tests, except for the PushInitiator
 
 ## The full MIT license
 
