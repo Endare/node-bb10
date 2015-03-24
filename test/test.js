@@ -1,3 +1,4 @@
+/* jshint expr:true */
 'use strict';
 
 /*!
@@ -14,7 +15,8 @@
 
 var chai = require('chai'),
     sinon = require('sinon'),
-    sinonChai = require('sinon-chai');
+    sinonChai = require('sinon-chai'),
+    https = require('https');
 
 var should = chai.should();
 chai.use(sinonChai);
@@ -22,6 +24,7 @@ chai.use(sinonChai);
 // library
 var bb10 = require('../index'),
     PushMessage = bb10.PushMessage,
+    PushInitiator = bb10.PushInitiator,
     constants = require('../lib/Constants');
 
 describe('node-bb10', function() {
@@ -126,23 +129,23 @@ describe('node-bb10', function() {
             });
 
             it('Should throw an error if the delivery method does not exist', function() {
-                message.setDeliveryMethod.bind(message.setDeliveryMethod, 'unknownmethod').should.throw(Error);
+                message.setDeliveryMethod.bind(message, 'unknownmethod').should.throw(Error);
             });
 
             it('Should not throw an error if the delivery method is \'confirmed\'', function() {
-                message.setDeliveryMethod.bind(message.setDeliveryMethod, 'confirmed').should.not.throw(Error);
+                message.setDeliveryMethod.bind(message, 'confirmed').should.not.throw(Error);
             });
 
             it('Should not throw an error if the delivery method is \'preferconfirmed\'', function() {
-                message.setDeliveryMethod.bind(message.setDeliveryMethod, 'preferconfirmed').should.not.throw(Error);
+                message.setDeliveryMethod.bind(message, 'preferconfirmed').should.not.throw(Error);
             });
 
             it('Should not throw an error if the delivery method is \'unconfirmed\'', function() {
-                message.setDeliveryMethod.bind(message.setDeliveryMethod, 'preferconfirmed').should.not.throw(Error);
+                message.setDeliveryMethod.bind(message, 'preferconfirmed').should.not.throw(Error);
             });
 
             it('Should not throw an error if the delivery method is \'unconfirmed\'', function() {
-                message.setDeliveryMethod.bind(message.setDeliveryMethod, 'notspecified').should.not.throw(Error);
+                message.setDeliveryMethod.bind(message, 'notspecified').should.not.throw(Error);
             });
 
             it('Should set the delivery method to \'unconfirmed\'', function() {
@@ -198,7 +201,7 @@ describe('node-bb10', function() {
             });
 
             it('Should throw an error if the argument provided is not an array', function() {
-                message.addAllRecipients.bind(message.addAllRecipients, 'FFFFFFFF').should.throw(Error);
+                message.addAllRecipients.bind(message, 'FFFFFFFF').should.throw(Error);
             });
 
             it('Should add two recipients to the recipients list', function() {
@@ -251,7 +254,7 @@ describe('node-bb10', function() {
             it('Should throw an error if no recipients are added to the message', function() {
                 message.clearRecipients();
 
-                message.toPAPMessage.bind(message.toPAPMessage).should.throw(Error);
+                message.toPAPMessage.bind(message).should.throw(Error);
             });
 
             it('Should convert to the correct PAP message with only one recipient', function() {
@@ -407,6 +410,24 @@ describe('node-bb10', function() {
                          ];
 
                 result.should.be.equal(pap.join(constants.NEW_LINE));
+            });
+        });
+    });
+
+    describe('PushInitiator', function() {
+
+        describe('#constructor', function() {
+
+            it('Should set the evaluation to false if is not provided', function() {
+                var initiator = new PushInitiator('appID', 'pwd', 'cpid');
+
+                initiator.isEvaluation.should.be.equal(false);
+            });
+
+            it('Should set the evaluation to true if is explicitly set to true', function() {
+                var initiator = new PushInitiator('appID', 'pwd', 'cpid', true);
+
+                initiator.isEvaluation.should.be.equal(true);
             });
         });
     });
